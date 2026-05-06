@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<!-- saved from url=(0084)http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa -->
+<html lang="ar" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style><script type="text/javascript" src="./Focusly - ركز أكتر، أنجز أسرع_files/___vscode_livepreview_injected_script"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focusly - ركز أكتر، أنجز أسرع</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+        
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --text: #1f2937;
+            --light: #f8fafc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #fff;
+            direction: rtl;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 100px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            animation: pulse 15s infinite ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.35rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .hero .btn {
+            padding: 16px 36px;
+            font-size: 1.1rem;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            color: #64748b;
+            font-size: 1.2rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+        
+        .about-text p {
+            font-size: 1.2rem;
+            color: #475569;
+            margin-bottom: 2rem;
+        }
+        
+        .problem-list {
+            list-style: none;
+        }
+        
+        .problem-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .problem-list li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1e2937;
+            color: #cbd5e1;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-col a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col a:hover {
+            color: #a5b4fc;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+        
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Focusly</div>
+                <ul class="nav-links">
+                    <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#features">المميزات</a></li>
+                    <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#about">عن المنتج</a></li>
+                    <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">الأسعار</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#" class="btn btn-primary">ابدأ مجاناً</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">الإصدار التجريبي متاح الآن 🎉</div>
+                <h1>ركز أكتر.<br>أنجز أسرع.<br>مع Focusly</h1>
+                <p>تطبيق التركيز الذكي الذي يساعدك على إدارة وقتك، تقليل التشتت، وإنجاز المهام بكفاءة أعلى.</p>
+                
+                <div class="hero-buttons">
+                    <a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#" class="btn btn-primary">ابدأ الاستخدام مجاناً</a>
+                    <a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#" class="btn btn-outline" style="color:white; border-color:white;">شاهد الفيديو</a>
+                </div>
+                
+                <p style="margin-top: 3rem; font-size: 1rem; opacity: 0.8;">
+                    ✓ مجاني لأول 30 يوم • لا يحتاج بطاقة ائتمان
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">كل شيء تحتاجه للتركيز</h2>
+            <p class="section-subtitle">مميزات بسيطة وقوية تساعدك على التحكم في يومك</p>
+            
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>وضع التركيز الذكي</h3>
+                    <p>يحظر التطبيقات المشتتة تلقائياً أثناء جلسات العمل ويرسل إشعارات هادئة فقط.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>مهام ذكية + Pomodoro</h3>
+                    <p>نظام Pomodoro مدمج مع قوائم مهام ذكية تتكيف مع طاقتك اليومية.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>تقارير التركيز</h3>
+                    <p>رؤية واضحة لكيفية قضاء وقتك يومياً مع نصائح شخصية للتحسين.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>لماذا تحتاج Focusly؟</h2>
+                    <p>في عالم مليء بالإشعارات والتشتت، يصعب علينا التركيز لأكثر من 10 دقائق متواصلة. Focusly يساعدك على استعادة سيطرتك على وقتك.</p>
+                    
+                    <h3 style="margin: 2rem 0 1rem;">Focusly يحل المشاكل دي:</h3>
+                    <ul class="problem-list">
+                        <li>التشتت المستمر بسبب الإشعارات</li>
+                        <li>صعوبة البدء في المهام المهمة</li>
+                        <li>فقدان التركيز بعد 20-30 دقيقة</li>
+                        <li>عدم معرفة كمية الوقت الضائع يومياً</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #f1f5f9; padding: 2rem; border-radius: 20px; text-align: center;">
+                    <div style="font-size: 6rem; margin-bottom: 1rem;">🎯</div>
+                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">متوسط تحسن التركيز</h3>
+                    <div style="font-size: 4rem; font-weight: 700; color: #4f46e5;">+68%</div>
+                    <p style="color: #64748b; margin-top: 1rem;">بناءً على تجارب 12,450 مستخدم</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section style="background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 90px 0; text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 2.8rem; margin-bottom: 1.5rem;">جاهز تبدأ تركز أكتر؟</h2>
+            <p style="font-size: 1.4rem; max-width: 600px; margin: 0 auto 2.5rem;">
+                انضم لآلاف المستخدمين الذين ينجزون أكثر في أقل وقت
+            </p>
+            <a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#" class="btn btn-primary" style="padding: 18px 48px; font-size: 1.3rem;">ابدأ الآن - مجاناً</a>
+            <p style="margin-top: 2rem; opacity: 0.9;">لا تحتاج بطاقة ائتمان • يمكنك الإلغاء في أي وقت</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Focusly</h3>
+                    <p>تطبيق التركيز الذكي للمهنيين والطلاب الذين يريدون إنجاز أكثر.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>المنتج</h3>
+                    <ul>
+                        <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">المميزات</a></li>
+                        <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">الأسعار</a></li>
+                        <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">مدونة</a></li>
+                        <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">الأسئلة الشائعة</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>الشركة</h3>
+                    <ul>
+                        <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">من نحن</a></li>
+                        <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">وظائف</a></li>
+                        <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>تواصل معنا</h3>
+                    <ul>
+                        <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">Twitter</a></li>
+                        <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">Instagram</a></li>
+                        <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">TikTok</a></li>
+                        <li><a href="http://127.0.0.1:3000/task1.html?serverWindowId=269c83b9-4956-4cdc-a78c-e075e77c1aaa#">support@focusly.app</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2026 Focusly. جميع الحقوق محفوظة. | صنع بحب في مصر 🇪🇬
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple scroll animation
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                if (cardTop < window.innerHeight - 100) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        
+        // Make buttons more interactive
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.textContent.includes('ابدأ')) {
+                    alert('🎉 مرحباً! في النسخة الحقيقية هيفتح معاك صفحة التسجيل');
+                }
+            });
+        });
+    </script>
+
+<veepn-lock-screen><template shadowrootmode="open"><style>html{box-sizing:border-box;text-size-adjust:100%;word-break:normal;tab-size:4}*,:before,:after{background-repeat:no-repeat;box-sizing:border-box}:before,:after{text-decoration:inherit;vertical-align:inherit}*{padding:0;margin:0}hr{overflow:visible;height:0;color:inherit;border:0;border-top:1px solid}details,main{display:block}summary{display:list-item}small{font-size:80%}[hidden]{display:none!important}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}a{background-color:transparent}a:active,a:hover{outline-width:0}code,kbd,pre,samp{font-family:monospace}pre{font-size:1em}b,strong{font-weight:bolder}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{border-color:inherit;text-indent:0}iframe{border-style:none}input{border-radius:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{appearance:none}textarea{overflow:auto;resize:vertical}button,input,optgroup,select,textarea{font:inherit;color:inherit}optgroup{font-weight:700}button{overflow:visible}button,select{text-transform:none}button,[type=button],[type=reset],[type=submit],[role=button]{cursor:pointer}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button,html [type=button],[type=reset],[type=submit]{appearance:auto}button,input,select,textarea{background-color:transparent;border-style:none}button:-moz-focusring,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{outline:1px dotted ButtonText}select{appearance:none}a:focus,button:focus,input:focus,select:focus,textarea:focus{outline-width:0}select::-ms-expand{display:none}select::-ms-value{color:currentcolor}legend{border:0;color:inherit;display:table;white-space:normal;max-width:100%}::-webkit-file-upload-button{appearance:auto;color:inherit;font:inherit}[disabled]{cursor:default}img{border-style:none}progress{vertical-align:baseline}[aria-busy=true]{cursor:progress}[aria-controls]{cursor:pointer}[aria-disabled=true]{cursor:default}ul,ol{list-style-type:none}figure{margin:0}@keyframes slide-in{0%{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}.gradient-blue{background:radial-gradient(106.41% 128.47% at 50.15% 128.47%,#23abff,#3066ff)}.gradient-green{background:radial-gradient(92.26% 118.88% at 50.15% .13%,#00c3c3,#00aab3)}.gradient-purple{background:radial-gradient(165.12% 115.56% at 50.15% .13%,#a15aff,#00a0eb)}.bg-blue{background-color:#f2f5ff}.bg-purple{background-color:#f7f0ff}.bg-green{background-color:#ebffed}.lock-screen{font-family:FigtreeVF,sans-serif;letter-spacing:normal;position:fixed;z-index:2147483638;right:24px;bottom:24px;width:327px;border-radius:24px;overflow:hidden;box-shadow:0 24px 32px #00000014;animation:slide-in .3s ease-in-out forwards}.lock-screen__content{position:relative;padding:24px 24px 64px}.lock-screen__close{position:absolute;top:16px;right:16px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;opacity:.5}.lock-screen__label{height:26px;width:fit-content;border-radius:50px;background-color:#fff3;padding-inline:16px;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-size:12px;line-height:18px;margin:-8px auto 16px}.lock-screen__title{color:#fff;text-align:center;font-size:20px;line-height:28px;font-weight:600;margin-bottom:8px}.lock-screen__description{color:#f5f6f7;text-align:center;font-size:14px;line-height:20px}.lock-screen__description b{font-weight:600}.lock-screen__card{position:relative;z-index:1;margin-top:-44px;background-color:#fff;border-radius:24px;padding:32px 20px 20px}.lock-screen__inner{margin-bottom:24px}.lock-screen__submit{display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700;font-size:16px;height:40px;width:100%;border-radius:12px;padding-inline:16px;background-color:#f70;color:#fff;margin-bottom:16px}.lock-screen__skip{display:flex;align-items:center;justify-content:center;font-size:14px;line-height:20px;color:#82829c;margin-inline:auto}.price-card{border:1px solid #f2f2fc;background:linear-gradient(254.14deg,#fafbff .04%,#f5f8ff 100.04%);border-radius:24px;padding:24px 28px}.price-card__label{color:#4a5764;text-align:center;font-size:14px;line-height:20px;text-transform:uppercase;margin-bottom:16px}.price-card__price{display:flex;justify-content:center;align-items:flex-start;column-gap:2px;margin-bottom:12px}.price-card__currency{color:#515478;font-size:18px;line-height:28px}.price-card__number{color:#14142a;text-align:center;font-size:64px;line-height:54px}.price-card__wrap{display:flex;flex-direction:column}.price-card__decimal{color:#515478;font-size:18px;line-height:28px;font-weight:600}.price-card__period{color:#515478;font-size:14px;line-height:20px;margin-top:-6px}.price-card__discount{position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:12px}.price-card__discount-divider{position:absolute;z-index:0;top:50%;left:0;width:100%;height:1px;background-color:#dbe2f9;transform:translateY(-50%)}.price-card__discount-icon{position:absolute;z-index:1;top:50%;left:50%;transform:translate(-50%,-50%)}.price-card__discount-text{position:relative;z-index:2;color:#fff;font-size:12px;font-weight:600;line-height:18px}.price-card__features{display:flex;align-items:center;justify-content:center;column-gap:16px}.price-card__feature{color:#222e3a;font-size:14px;line-height:20px;display:flex;align-items:center;gap:6px}.price-card__feature:before{content:"";display:block;width:4px;height:4px;background-color:#20df9e;border-radius:50%;flex-shrink:0}.features-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.features-list__item{display:flex;flex-direction:column;align-items:center;gap:6px}.features-list__icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center}.features-list__text{color:#293a53;text-align:center;font-size:16px;line-height:24px;letter-spacing:-.1px}</style></template><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-lock-screen></body></html>

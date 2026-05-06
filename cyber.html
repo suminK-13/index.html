@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التشفير بمفتاح عام والدوال الهاش • Public-Key Cryptography & Hash Functions</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;family=Inter:wght@400;600&amp;display=swap');
+        
+        :root {
+            --bg: #0f172a;
+            --card: #1e2937;
+            --accent: #64748b;
+            --text: #e2e8f0;
+            --light-text: #94a3b8;
+        }
+        
+        body {
+            font-family: 'Cairo', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #334155;
+            padding: 60px 30px;
+            text-align: center;
+            border-radius: 24px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #cbd5e1;
+            margin: 0 0 12px 0;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 1.35rem;
+            color: var(--accent);
+            font-weight: 400;
+        }
+        
+        .section {
+            background: var(--card);
+            margin-bottom: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .section-header {
+            background: #0f172a;
+            color: #64748b;
+            padding: 25px 35px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .content {
+            padding: 35px 40px;
+        }
+        
+        .content h2 {
+            color: #cbd5e1;
+            font-size: 1.65rem;
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 8px;
+        }
+        
+        .content ul {
+            padding-right: 25px;
+        }
+        
+        .content li {
+            margin-bottom: 14px;
+            position: relative;
+        }
+        
+        .content li:before {
+            content: "◉";
+            color: var(--accent);
+            position: absolute;
+            right: -22px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: #0f172a;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 16px 20px;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+        }
+        
+        th {
+            background: #1e2937;
+            color: #64748b;
+            font-weight: 600;
+        }
+        
+        .highlight {
+            background: #334155;
+            padding: 22px;
+            border-radius: 14px;
+            border-right: 6px solid #64748b;
+            margin: 25px 0;
+        }
+        
+        .qa-card {
+            background: #1e2937;
+            padding: 28px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border-right: 5px solid #64748b;
+        }
+        
+        .qa-card .q {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 12px;
+        }
+        
+        /* Bilingual Styling */
+        .bilingual {
+            margin-top: 40px;
+            padding-top: 35px;
+            border-top: 2px dashed #334155;
+        }
+        
+        .bilingual h2 {
+            color: #94a3b8;
+            font-size: 1.55rem;
+        }
+        
+        .bilingual p, .bilingual ul, .bilingual .highlight {
+            color: #cbd5e1;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 50px 20px 30px;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav a {
+            background: #1e2937;
+            color: #94a3b8;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .nav a:hover {
+            background: #334155;
+            color: #cbd5e1;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header>
+            <h1>التشفير بمفتاح عام • Public-Key Cryptography</h1>
+            <p class="subtitle">والدوال الهاش التشفيرية • Cryptographic Hash Functions</p>
+            <p style="margin-top: 20px; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; color: #94a3b8;">
+                شرح كامل • مبسط • مبني على محاضرات<br>
+                Complete Simplified Explanation •
+            </p>
+        </header>
+
+        <!-- NAV -->
+        <div class="nav">
+            <a href="#ch1">الفصل الأول: التشفير بمفتاح عام • Chapter 1</a>
+            <a href="#ch2">الفصل الثاني: الدوال الهاش • Chapter 2</a>
+            <a href="#apps">التطبيقات • Applications</a>
+            <a href="#qa">أسئلة وإجابات • Q&amp;A</a>
+        </div>
+
+        <!-- CHAPTER 1 -->
+        <div id="ch1" class="section">
+            <div class="section-header">الفصل الأول • التشفير بمفتاح عام (Public-Key Cryptography)</div>
+            <div class="content">
+                
+                <h2>لماذا نحتاج هذا النوع من التشفير؟</h2>
+                <div class="highlight">
+                    <strong>التشفير المتماثل (مفتاح واحد) يعاني من مشكلتين كبيرتين:</strong><br><br>
+                    1. تبادل المفتاح: يجب مشاركة المفتاح السري بين الطرفين (خطر السرقة).<br>
+                    2. التوقيعات الرقمية: كيف نثبت أن الرسالة جاءت فعلاً من شخص معين؟
+                </div>
+                
+                <div class="bilingual">
+                    <h2>Why Do We Need Public-Key Cryptography?</h2>
+                    <div class="highlight">
+                        <strong>Symmetric encryption (single key) has two major problems:</strong><br><br>
+                        1. Key exchange: Both parties must share the secret key (risk of theft).<br>
+                        2. Digital signatures: How to prove the message really came from a specific person?
+                    </div>
+                </div>
+
+                <h2>الحل السحري: زوج من المفاتيح</h2>
+                <ul>
+                    <li>كل شخص يولّد <strong>مفتاحين</strong>:
+                        <ul>
+                            <li><strong>مفتاح عام (Public Key)</strong> → يُنشر للجميع (مثل رقم الهاتف)</li>
+                            <li><strong>مفتاح خاص (Private Key)</strong> → يبقى سرياً عند صاحبه فقط</li>
+                        </ul>
+                    </li>
+                    <li>المفتاحان مرتبطان رياضياً (مثل RSA).</li>
+                </ul>
+                
+                <div class="bilingual">
+                    <h2>The Magic Solution: A Pair of Keys</h2>
+                    <ul>
+                        <li>Every person generates <strong>two keys</strong>:
+                            <ul>
+                                <li><strong>Public Key</strong> → Published for everyone (like a phone number)</li>
+                                <li><strong>Private Key</strong> → Kept completely secret by the owner</li>
+                            </ul>
+                        </li>
+                        <li>The two keys are mathematically linked (e.g., RSA).</li>
+                    </ul>
+                </div>
+
+                <h2>كيفية التشفير (السرية فقط)</h2>
+                <p style="font-size:1.15rem; background:#0f172a; padding:20px; border-radius:12px;">
+                    أحمد يريد إرسال رسالة سرية لسارة:<br><br>
+                    <strong>يستخدم مفتاح سارة العام</strong> للتشفير<br>
+                    <strong>سارة فقط</strong> تستطيع فك التشفير بمفتاحها الخاص
+                </p>
+                
+                <div class="bilingual">
+                    <h2>How Encryption Works (Confidentiality Only)</h2>
+                    <p style="font-size:1.15rem; background:#0f172a; padding:20px; border-radius:12px;">
+                        Ahmed wants to send a secret message to Sara:<br><br>
+                        He encrypts using <strong>Sara’s public key</strong><br>
+                        <strong>Only Sara</strong> can decrypt it with her private key
+                    </p>
+                </div>
+
+                <h2>كيفية التوقيع الرقمي (التحقق من الهوية)</h2>
+                <p style="font-size:1.15rem; background:#0f172a; padding:20px; border-radius:12px;">
+                    أحمد يحسب "بصمة" الرسالة (الهاش) ثم <strong>يشفرها بمفتاحه الخاص</strong><br>
+                    أي شخص يستطيع التحقق بـ <strong>مفتاح أحمد العام</strong>
+                </p>
+                
+                <div class="bilingual">
+                    <h2>Digital Signature (Authentication)</h2>
+                    <p style="font-size:1.15rem; background:#0f172a; padding:20px; border-radius:12px;">
+                        Ahmed calculates the “fingerprint” (hash) of the message then <strong>encrypts it with his private key</strong><br>
+                        Anyone can verify using <strong>Ahmed’s public key</strong>
+                    </p>
+                </div>
+
+                <h2>الجمع بين السرية + التوقيع</h2>
+                <p>أحمد يوقّع أولاً بمفتاحه الخاص، ثم يشفر النتيجة بمفتاح سارة العام.</p>
+                
+                <div class="bilingual">
+                    <h2>Combining Confidentiality + Authentication</h2>
+                    <p>Ahmed signs first with his private key, then encrypts the result with Sara’s public key.</p>
+                </div>
+
+                <h2>مزايا مذهلة</h2>
+                <ul>
+                    <li>المفتاح الخاص لا يُرسل أبداً</li>
+                    <li>يمكن تغيير المفاتيح في أي وقت</li>
+                    <li>كل شخص يولّد مفاتيحه بنفسه (آمن جداً)</li>
+                </ul>
+                
+                <div class="bilingual">
+                    <h2>Amazing Advantages</h2>
+                    <ul>
+                        <li>Private key is never sent</li>
+                        <li>Keys can be changed at any time</li>
+                        <li>Everyone generates their own keys locally (very secure)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHAPTER 2 -->
+        <div id="ch2" class="section">
+            <div class="section-header">الفصل الثاني • الدوال الهاش التشفيرية (Cryptographic Hash Functions)</div>
+            <div class="content">
+                
+                <h2>ما هي دالة الهاش؟</h2>
+                <p>تأخذ <strong>أي نص أو ملف</strong> (طوله متغير) وتعطيك <strong>رقم ثابت الطول</strong> (بصمة).</p>
+                <p class="highlight">
+                    مثال: ملف 10 جيجا → يصبح 64 حرف فقط (SHA-512)<br>
+                    <strong>خاصية ذهبية:</strong> تغيير حرف واحد = تغيير كامل في الهاش (مستحيل التنبؤ)
+                </p>
+                
+                <div class="bilingual">
+                    <h2>What is a Hash Function?</h2>
+                    <p>It takes <strong>any text or file</strong> (variable length) and produces a <strong>fixed-size fingerprint</strong>.</p>
+                    <p class="highlight">
+                        Example: 10 GB file → becomes only 64 characters (SHA-512)<br>
+                        <strong>Golden Property:</strong> Changing one letter = completely different hash (impossible to predict)
+                    </p>
+                </div>
+
+                <h2>مقارنة أشهر الدوال (SHA)</h2>
+                <table>
+                    <tr>
+                        <th>الدالة</th>
+                        <th>حجم الهاش</th>
+                        <th>حجم البلوك</th>
+                        <th>عدد الخطوات</th>
+                    </tr>
+                    <tr>
+                        <td>SHA-1</td>
+                        <td>160 بت</td>
+                        <td>512 بت</td>
+                        <td>80</td>
+                    </tr>
+                    <tr>
+                        <td>SHA-256</td>
+                        <td>256 بت</td>
+                        <td>512 بت</td>
+                        <td>64</td>
+                    </tr>
+                    <tr>
+                        <td>SHA-512</td>
+                        <td>512 بت</td>
+                        <td>1024 بت</td>
+                        <td>80</td>
+                    </tr>
+                </table>
+                
+                <div class="bilingual">
+                    <h2>SHA Family Comparison</h2>
+                    <table>
+                        <tr>
+                            <th>Function</th>
+                            <th>Hash Size</th>
+                            <th>Block Size</th>
+                            <th>Steps</th>
+                        </tr>
+                        <tr>
+                            <td>SHA-1</td>
+                            <td>160 bits</td>
+                            <td>512 bits</td>
+                            <td>80</td>
+                        </tr>
+                        <tr>
+                            <td>SHA-256</td>
+                            <td>256 bits</td>
+                            <td>512 bits</td>
+                            <td>64</td>
+                        </tr>
+                        <tr>
+                            <td>SHA-512</td>
+                            <td>512 bits</td>
+                            <td>1024 bits</td>
+                            <td>80</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h2>تطبيقات الدالة الهاش</h2>
+                <ul>
+                    <li><strong>مصادقة الرسالة</strong> (نضيف "ملح" Salt لمنع التلاعب)</li>
+                    <li><strong>التوقيع الرقمي</strong> (نحسب الهاش أولاً ثم نشفره فقط — أسرع بكثير)</li>
+                    <li>تخزين كلمات المرور بأمان</li>
+                    <li>التحقق من سلامة الملفات</li>
+                </ul>
+                
+                <div class="bilingual">
+                    <h2>Applications of Hash Functions</h2>
+                    <ul>
+                        <li><strong>Message Authentication</strong> (add Salt to prevent tampering)</li>
+                        <li><strong>Digital Signature</strong> (calculate hash first, then sign only the hash — much faster)</li>
+                        <li>Secure password storage</li>
+                        <li>File integrity verification</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- APPLICATIONS -->
+        <div id="apps" class="section">
+            <div class="section-header">التطبيقات العملية • Practical Applications</div>
+            <div class="content">
+                <div class="highlight">
+                    <strong>1. السرية فقط:</strong> تشفير الرسالة بمفتاح المستقبل العام<br><br>
+                    <strong>2. التحقق فقط:</strong> توقيع بمفتاح المرسل الخاص<br><br>
+                    <strong>3. الاثنان معاً:</strong> أقوى مستوى أمان
+                </div>
+                
+                <div class="bilingual">
+                    <h2>Practical Applications</h2>
+                    <div class="highlight">
+                        <strong>1. Confidentiality Only:</strong> Encrypt with receiver’s public key<br><br>
+                        <strong>2. Authentication Only:</strong> Sign with sender’s private key<br><br>
+                        <strong>3. Both Together:</strong> Highest security level
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTIONS -->
+        <div id="qa" class="section">
+            <div class="section-header">أسئلة وإجابات للمراجعة السريعة • Quick Review Questions &amp; Answers</div>
+            <div class="content">
+                
+                <div class="qa-card">
+                    <div class="q">1. ما هي مشكلتا التشفير المتماثل؟</div>
+                    <div>تبادل المفتاح + صعوبة التوقيعات الرقمية</div>
+                    <div class="bilingual" style="margin-top:15px; border-top:1px solid #334155; padding-top:15px;">
+                        1. What are the two problems of symmetric encryption?<br>
+                        Key exchange + Digital signatures difficulty
+                    </div>
+                </div>
+                
+                <div class="qa-card">
+                    <div class="q">2. كيف يعمل التشفير لضمان السرية فقط؟</div>
+                    <div>يشفر المرسل بمفتاح المستقبل العام، والمستقبل يفك بمفتاحه الخاص</div>
+                    <div class="bilingual" style="margin-top:15px; border-top:1px solid #334155; padding-top:15px;">
+                        2. How does encryption ensure confidentiality only?<br>
+                        Sender encrypts with receiver’s public key, receiver decrypts with private key
+                    </div>
+                </div>
+                
+                <div class="qa-card">
+                    <div class="q">3. ما هي خاصية دالة الهاش الأهم؟</div>
+                    <div>تغيير حرف واحد يغير الهاش كلياً (مستحيل التنبؤ)</div>
+                    <div class="bilingual" style="margin-top:15px; border-top:1px solid #334155; padding-top:15px;">
+                        3. What is the most important property of a hash function?<br>
+                        Changing one character completely changes the hash (unpredictable)
+                    </div>
+                </div>
+                
+                <div class="qa-card">
+                    <div class="q">4. لماذا نستخدم الهاش في التوقيع الرقمي؟</div>
+                    <div>لأنه سريع جداً — نكتفي بتشفير 64 حرف فقط بدلاً من الملف كله</div>
+                    <div class="bilingual" style="margin-top:15px; border-top:1px solid #334155; padding-top:15px;">
+                        4. Why do we use hash in digital signatures?<br>
+                        It is very fast — we only encrypt 64 characters instead of the whole file
+                    </div>
+                </div>
+                
+                <div class="qa-card">
+                    <div class="q">5. ما الفرق بين SHA-256 وSHA-512؟</div>
+                    <div>SHA-512 أكثر أماناً (512 بت) ويستخدم بلوك أكبر</div>
+                    <div class="bilingual" style="margin-top:15px; border-top:1px solid #334155; padding-top:15px;">
+                        5. What is the difference between SHA-256 and SHA-512?<br>
+                        SHA-512 is more secure (512 bits) and uses larger blocks
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            تم الشرح بطريقة مبسطة وهادئة باللغتين العربية والإنجليزية معاً • مبني على محاضرات د. أشرف طه<br>
+            Complete calm bilingual design (Arabic + English together) • Based on Dr. Ashraf Taha Lectures<br><br>
+            انسخ هذا الكود كاملاً واحفظه باسم <strong>cyber-security-bilingual.html</strong> ثم افتحه في أي متصفح
+        </footer>
+    </div>
+</body>
+</html>

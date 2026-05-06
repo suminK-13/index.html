@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Language Learning</title>
+    <link rel="stylesheet" href="learning.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1 data-i18n="app-title">Language Learning</h1>
+            <p data-i18n="app-subtitle">Expand your vocabulary with cute flashcards!</p>
+
+            <div class="language-controls">
+                <div class="select-group">
+                    <label for="source-lang" data-i18n="label-speak">I speak:</label>
+                    <select id="source-lang">
+                        <option value="ar">العربية (Arabic)</option>
+                        <option value="en" selected>English</option>
+                        <option value="ko">한국어 (Korean)</option>
+                        <option value="tr">Türkçe (Turkish)</option>
+                    </select>
+                </div>
+
+                <div class="exchange-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+
+                <div class="select-group">
+                    <label for="target-lang" data-i18n="label-learn">I want to learn:</label>
+                    <select id="target-lang">
+                        <option value="ar">العربية (Arabic)</option>
+                        <option value="en">English</option>
+                        <option value="ko" selected>한국어 (Korean)</option>
+                        <option value="tr">Türkçe (Turkish)</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <!-- Learn Mode -->
+        <div class="card-container">
+            <div class="card" id="flashcard">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <h2 id="word-front">Hello</h2>
+                        <span class="lang-label" id="label-front">English</span>
+                        <div class="hint-icon" title="Click to flip">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h2 id="word-back">안녕하세요</h2>
+                        <p id="pronunciation" class="pronunciation"></p>
+                        <span class="lang-label" id="label-back">Korean</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="prev-btn" class="nav-btn" data-i18n="btn-prev">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="rtl-flip">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                Prev
+            </button>
+            <button id="flip-btn" class="action-btn" data-i18n="btn-flip">Flip Card</button>
+            <button id="next-btn" class="nav-btn" data-i18n="btn-next">
+                Next
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="rtl-flip">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      
+                    stroke-linejoin="round" />
+                </svg>
+            </button>
+            <button id="quiz-btn" class="action-btn quiz-btn" data-i18n="btn-quiz">Take Quiz</button>
+        </div>
+
+        <!-- Quiz Mode (Hidden by default) -->
+        <div id="quiz-container" class="quiz-container hidden">
+            <h2 data-i18n="quiz-title">Quiz Time!</h2>
+            <div id="quiz-score" class="quiz-score">Score: 0/10</div>
+            <div class="question-card">
+                <h3 id="quiz-question">Question Code</h3>
+            </div>
+            <div id="quiz-options" class="quiz-options">
+                <!-- Buttons injected by JS -->
+            </div>
+        </div>
+
+        <!-- Quiz Result (Hidden by default) -->
+        <div id="quiz-result" class="quiz-result hidden">
+            <h2 id="msg-finished" data-i18n="msg-finished">Quiz Finished!</h2>
+            <div id="final-score" class="final-score">8 / 10</div>
+            <div class="result-actions">
+                <button id="restart-btn" class="action-btn" data-i18n="btn-restart">Restart Quiz</button>
+                <button id="next-cat-btn" class="nav-btn" data-i18n="btn-next-cat">Next Unit</button>
+                <button id="back-btn" class="nav-btn" data-i18n="btn-back">Back to Flashcards</button>
+            </div>
+        </div>
+
+        <div class="category-selector">
+            <select id="category-select">
+                <!-- Options populated by JS -->
+            </select>
+        </div>
+    </div>
+
+    <script src="learnWithSumin.js"></script>
+</body>
+
+</html>
