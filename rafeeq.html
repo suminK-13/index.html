@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رفيق - تطبيق متابعة المرضى</title>
+    <link rel="stylesheet" href="rafeeq.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+    <!-- PWA Setup -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff1a1a">
+    <link rel="apple-touch-icon" href="logo.png">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="logo.png" alt="Phantoms Logo" class="team-logo" id="teamLogo">
+                <div class="brand">
+                    <h1 class="app-name">رفيق</h1>
+                    <span class="team-name">By Phantoms</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active">
+                    <i class="ph ph-squares-four"></i>
+                    <span>لوحة التحكم</span>
+                </a>
+
+                <a href="#history" class="nav-item">
+                    <i class="ph ph-clock-counter-clockwise"></i>
+                    <span>السجل الطبي</span>
+                </a>
+                <a href="#" class="nav-item" id="logoutBtn" style="color: var(--primary-red); margin-top: 20px; border-top: 1px solid rgba(255,26,26,0.2); border-radius: 0;">
+                    <i class="ph ph-sign-out"></i>
+                    <span>تسجيل خروج</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="patient-info">
+                    <div class="patient-avatar">
+                        <i class="ph ph-user"></i>
+                    </div>
+                    <div class="patient-details">
+                        <h2>أحمد محمد</h2>
+                        <p>العمر: 45 | فصيلة الدم: O+</p>
+                    </div>
+                </div>
+                <div class="status-badge pulse-red">
+                    <div class="dot"></div>
+                    <span>مراقبة مستمرة</span>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Vitals Cards -->
+                <div class="vital-card">
+                    <div class="card-header">
+                        <i class="ph ph-heartbeat icon-red"></i>
+                        <h3>نبضات القلب</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="value"><span id="bpmVal">78</span> <small>BPM</small></div>
+                        <div class="trend positive"><i class="ph ph-trend-down"></i> منتظم</div>
+                    </div>
+                </div>
+
+                <div class="vital-card">
+                    <div class="card-header">
+                        <i class="ph ph-drop icon-red"></i>
+                        <h3>ضغط الدم</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="value"><span id="bpVal">120/80</span> <small>mmHg</small></div>
+                        <div class="trend positive"><i class="ph ph-check-circle"></i> طبيعي</div>
+                    </div>
+                </div>
+
+                <div class="vital-card">
+                    <div class="card-header">
+                        <i class="ph ph-thermometer icon-red"></i>
+                        <h3>درجة الحرارة</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="value"><span id="tempVal">36.8</span> <small>°C</small></div>
+                        <div class="trend warning"><i class="ph ph-warning-circle"></i> مراقبة</div>
+                    </div>
+                </div>
+
+                <div class="vital-card">
+                    <div class="card-header">
+                        <i class="ph ph-wind icon-red"></i>
+                        <h3>الأكسجين (SpO2)</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="value"><span id="spo2Val">98</span> <small>%</small></div>
+                        <div class="trend positive"><i class="ph ph-check-circle"></i> ممتاز</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Area -->
+            <section class="charts-section">
+                <div class="chart-container glass-panel">
+                    <h3>مؤشر نبضات القلب الحي</h3>
+                    <canvas id="heartRateChart"></canvas>
+                </div>
+            </section>
+
+
+
+            <!-- History Table -->
+            <section id="history" class="history-section glass-panel">
+                <div class="section-header">
+                    <i class="ph ph-list-dashes"></i>
+                    <h3>السجل الطبي للمريض</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>الوقت والتاريخ</th>
+                                <th>النبض</th>
+                                <th>الضغط</th>
+                                <th>الحرارة</th>
+                                <th>الأكسجين</th>
+                                <th>الملاحظات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- Data will be populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script src="rafeeq.js"></script>
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((registration) => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    }, (err) => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

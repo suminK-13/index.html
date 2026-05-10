@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل دخول المريض - رفيق</title>
+    <link rel="stylesheet" href="rafeeq.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+    <!-- PWA Setup -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff1a1a">
+    <link rel="apple-touch-icon" href="logo.png">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-container {
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-header .team-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+        .login-header h1 {
+            color: var(--primary-red);
+            font-family: var(--font-heading);
+            font-size: 36px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px var(--primary-red-glow);
+        }
+        .login-header p {
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="login-container glass-panel">
+        <div class="login-header">
+            <img src="logo.png" alt="Phantoms Logo" class="team-logo">
+            <h1>رفيق</h1>
+            <p id="formTitle">إنشاء حساب جديد</p>
+        </div>
+
+        <div class="tab-buttons" style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <button class="btn btn-primary" id="btnShowRegister" style="flex: 1; padding: 10px;">إنشاء حساب</button>
+            <button class="btn" id="btnShowLogin" style="flex: 1; padding: 10px; background: transparent; border: 1px solid var(--border-color); color: var(--text-main);">تسجيل دخول</button>
+        </div>
+
+        <form id="registerForm" class="record-form">
+            <div class="form-group full-width">
+                <label>الاسم بالكامل</label>
+                <input type="text" id="regName" required placeholder="مثال: أحمد محمد عبد الله">
+            </div>
+            
+            <div class="form-group">
+                <label>رقم التليفون</label>
+                <input type="tel" id="regPhone" required placeholder="مثال: 01xxxxxxxxx">
+            </div>
+
+            <div class="form-group full-width">
+                <label>حساب الجيميل (Gmail)</label>
+                <input type="email" id="regEmail" required placeholder="مثال: example@gmail.com">
+            </div>
+
+            <div class="form-group">
+                <label>كلمة المرور</label>
+                <input type="password" id="regPassword" required placeholder="أدخل كلمة المرور">
+            </div>
+            
+            <div class="form-group full-width">
+                <label>عنوان المنزل</label>
+                <input type="text" id="regAddress" required placeholder="مثال: القاهرة، مدينة نصر، شارع...">
+            </div>
+
+            <div class="form-group">
+                <label>تاريخ الميلاد</label>
+                <input type="date" id="regDob" required>
+            </div>
+
+            <div class="form-group">
+                <label>العمر</label>
+                <input type="number" id="regAge" required placeholder="مثال: 45">
+            </div>
+
+            <div class="form-group full-width">
+                <label>أرقام الطوارئ (يمكن إدخال أكثر من رقم)</label>
+                <textarea id="regEmergency" rows="2" required placeholder="مثال: 0111xxx - 0100xxx"></textarea>
+            </div>
+
+            <div class="form-actions full-width" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary" style="width: 100%;">إنشاء الحساب وبدء المتابعة</button>
+            </div>
+        </form>
+
+        <form id="loginForm" class="record-form" style="display: none;">
+            <div class="form-group full-width">
+                <label>رقم التليفون</label>
+                <input type="tel" id="loginPhone" required placeholder="مثال: 01xxxxxxxxx">
+            </div>
+            <div class="form-group full-width">
+                <label>كلمة المرور</label>
+                <input type="password" id="loginPassword" required placeholder="أدخل كلمة المرور">
+            </div>
+            <div class="form-actions full-width" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary" style="width: 100%;">تسجيل الدخول</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const btnShowRegister = document.getElementById('btnShowRegister');
+        const btnShowLogin = document.getElementById('btnShowLogin');
+        const registerForm = document.getElementById('registerForm');
+        const loginForm = document.getElementById('loginForm');
+        const formTitle = document.getElementById('formTitle');
+
+        btnShowRegister.addEventListener('click', () => {
+            registerForm.style.display = 'grid';
+            loginForm.style.display = 'none';
+            formTitle.innerText = 'إنشاء حساب جديد';
+            btnShowRegister.classList.add('btn-primary');
+            btnShowRegister.style.background = '';
+            btnShowLogin.classList.remove('btn-primary');
+            btnShowLogin.style.background = 'transparent';
+        });
+
+        btnShowLogin.addEventListener('click', () => {
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'grid';
+            formTitle.innerText = 'تسجيل الدخول لحسابك';
+            btnShowLogin.classList.add('btn-primary');
+            btnShowLogin.style.background = '';
+            btnShowRegister.classList.remove('btn-primary');
+            btnShowRegister.style.background = 'transparent';
+        });
+
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect data
+            const patientData = {
+                name: document.getElementById('regName').value,
+                phone: document.getElementById('regPhone').value,
+                email: document.getElementById('regEmail').value,
+                address: document.getElementById('regAddress').value,
+                dob: document.getElementById('regDob').value,
+                age: document.getElementById('regAge').value,
+                emergency: document.getElementById('regEmergency').value
+            };
+            
+            // Save to local storage to pass to dashboard
+            localStorage.setItem('rafeeq_patient_data', JSON.stringify(patientData));
+            
+            // Redirect to dashboard
+            window.location.href = 'rafeeq.html';
+        });
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In a real app we'd verify the password. Here we just login if there's any data
+            const existingData = localStorage.getItem('rafeeq_patient_data');
+            if(existingData) {
+                window.location.href = 'rafeeq.html';
+            } else {
+                alert('لا يوجد حساب مسجل. يرجى إنشاء حساب أولاً.');
+                btnShowRegister.click();
+            }
+        });
+
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((registration) => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    }, (err) => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
